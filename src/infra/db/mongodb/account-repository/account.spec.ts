@@ -2,6 +2,11 @@ import { AccountMongoRepository } from './account'
 
 import { MongoHelper } from '../helpers/mongodb-helper'
 import { AddAccountModel } from '../../../../domain/usecases/add-account'
+import { AddAccountRepository } from '../../../../data/protocols/add-account-repository'
+
+const makeSut = (): AddAccountRepository => {
+  return new AccountMongoRepository()
+}
 
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
@@ -13,7 +18,7 @@ describe('Account Mongo Repository', () => {
   })
 
   test('Should return an account on success', async () => {
-    const sut = new AccountMongoRepository()
+    const sut = makeSut()
 
     const accountData: AddAccountModel = {
       name: 'any_name',
